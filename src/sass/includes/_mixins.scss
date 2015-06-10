@@ -1,0 +1,117 @@
+@mixin rounded($radius) {
+	border-radius: $radius;
+}
+@mixin gradient($from, $to) {
+	background: -webkit-gradient(linear, left top, left bottom, from($from), to($to));
+	background: -moz-linear-gradient(top, $from, $to);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');
+}
+// Only applies to Chrome/Safari/Opera and Firefox
+@mixin appearance($value) {
+	-webkit-appearance: $value;
+	-moz-appearance: $value;
+}
+// Add to input fields 
+@mixin placeholder($color) {
+	&:focus::-webkit-input-placeholder {
+		color: $color;
+	}
+	&:focus::-moz-placeholder {
+		color: $color;
+	}
+	&:focus:-ms-input-placeholder {
+		color: $color;
+	}
+}
+@mixin transition($transition) {
+	transition: $transition;
+}
+@mixin vertical-align {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
+@mixin transition-max-height {
+	@include transition(max-height 0.7s cubic-bezier(0.7, 0, 0.3, 1));
+}
+// Font sizing mixin usage: @include font-size(1.2);
+@mixin font-size($sizeValue: 1.6) {
+  font-size: ($sizeValue * 10) + px;
+  font-size: $sizeValue + rem;
+}
+
+@mixin vertical-align {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@mixin webkit-overflow-fix {
+	-webkit-backface-visibility: hidden;
+	-webkit-transform: translateZ(0);
+}
+
+// Breakpoint Mixin
+@mixin breakpoint($point) {
+	@if $point == "xx-large" {
+		@media (min-width: $xxlarge) {
+			@content;
+		}
+	}
+	@else if $point == "x-large" {
+		@media (min-width: $xlarge) {
+			@content;
+		}
+	}
+	@else if $point == "large" {
+		@media (min-width: $large) {
+			@content;
+		}
+	}
+	@else if $point == "medium" {
+		@media (min-width: $medium) {
+			@content;
+		}
+	}
+	@else if $point == "small" {
+		@media (max-width: $small) {
+			@content;
+		}
+	}
+	@else {
+		@media (min-width: $point) {
+			@content;
+		}
+	}
+}
+
+// Fonts
+$font-stack: "'Open Sans','Helvetica Neue', Helvetica, Arial, sans-serif";
+$xs-reg: "'xfinity'";
+$xs-med: "'xfinity medium'";
+$xs-light: "'xfinity light'";
+$xs-light--x: "'xfinity extra light'";
+$xs-thin: "'xfinity thin'";
+$xs-bold: "'xfinity bold'";
+
+@mixin font-weight($weight:'normal') {
+  @if $weight == 'thin' or $weight == 100 {
+    font-family: #{$xs-thin}, #{$font-stack};
+  }
+  @if $weight == 'extra light' or $weight == 200 {
+    font-family: #{$xs-light--x}, #{$font-stack};
+  }
+  @if $weight == 'light' or $weight == 300 {
+    font-family: #{$xs-light}, #{$font-stack};
+  }
+  @if $weight == 'normal' or $weight == 400 {
+    font-family: #{$xs-reg}, #{$font-stack};
+  }
+  @if $weight == 'medium' or $weight == 500 {
+    font-family: #{$xs-med}, #{$font-stack};
+  }
+  @if $weight == 'bold' or $weight == 700 {
+    font-family: #{$xs-bold}, #{$font-stack};
+  }
+  font-weight: normal;
+}
