@@ -40,7 +40,7 @@ gulp.task('css', function() {
 
 // Discovers all dependencies, concatenates together all required .js files, minifies them
 gulp.task("js", function () {
-  return gulp.src("src/**/*.js")
+  return gulp.src(["src/js/*.js"])
     .pipe(sourcemaps.init())
     .pipe(concat("all.js"))
     .pipe(babel())
@@ -58,6 +58,8 @@ gulp.task('html', function() {
         }))
         .pipe(gulp.dest('dist/'))
         .pipe(connect.reload());
+    gulp.src('src/js/vendor/*.js')
+    .pipe(gulp.dest(dest + "js"));
 });
 
 gulp.task('images', function() {
