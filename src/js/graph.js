@@ -1,15 +1,28 @@
-(function($){
+(function(){
+	"use strict";
 	/*jshint esnext: true */
 	class Graph {
-		constructor() {
+		/**
+		 * Creates a new canvas element in the document
+		 */
+		constructor(data, options) {
 			let canvas = document.createElement("canvas"),
 				context = canvas.getContext("2d");
+
+			// construct canvas
 			canvas.height = 300;
 			canvas.width = 300;
 			document.body.appendChild(canvas);
 
 			this.canvas = canvas;
 			this.context = context;
+			this.data = data;
+			this.options = options || {
+				animation: true,
+				animationSteps: 60,
+				onStart: function(){},
+				onFinish: function(){}
+			};
 		}
 
 		static createRectangle(dimensions, fill) {
@@ -30,7 +43,7 @@
 			this.fill = fill;
 		}
 
-		draw(dimensions='[0,0,100,100]', type='rectangle', fill='black') {
+		drawShape(dimensions=[0,0,100,100], type='rectangle', fill='black') {
 			/**
 			 * @param {dimensions} an array containing the x,y pos values and dimensions of the drawn object
 			 * @param {type} the type of object, rectangle or circle
@@ -59,9 +72,4 @@
 
 		}
 	}
-	$(document).ready(function(){
-		let artBoard = new Graph();
-		artBoard.draw([0,0, 100, 100], "rectangle", "#00FFCC");
-		artBoard.draw([100,100, 100, 100], "rectangle", "#00FF00");
-	});
-})(jQuery);
+}).call(this);
