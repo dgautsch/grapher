@@ -74,7 +74,7 @@ gulp.task('connect', function() {
     connect.server({
         root: ['dist/'],
         livereload: true,
-        middleware: function(connect, opt) {
+        middleware: function() {
             return [
                 modRewrite([
                     '^/$ /index.html',
