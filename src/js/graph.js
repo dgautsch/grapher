@@ -10,10 +10,12 @@ var Grapher = Grapher || {};
 		constructor(data, options) {
 			let canvas = document.createElement("canvas"),
 				context = canvas.getContext("2d");
-
+			if(!window.Jquery) {
+				throw new Error("jQuery is required to use this library");
+			}
 			this.canvas = canvas;
 			this.context = context;
-			this.data = data;
+			this.data = data || [];
 			this.options = options || {
 				height: 300,
 				width: 300,
