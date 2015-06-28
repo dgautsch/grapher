@@ -1,4 +1,6 @@
-(function(){
+// Define Namesapce
+var Grapher = Grapher || {};
+(function(Grapher){
 	"use strict";
 	/*jshint esnext: true */
 	class Graph {
@@ -9,20 +11,20 @@
 			let canvas = document.createElement("canvas"),
 				context = canvas.getContext("2d");
 
-			// construct canvas
-			canvas.height = 300;
-			canvas.width = 300;
-			document.body.appendChild(canvas);
-
 			this.canvas = canvas;
 			this.context = context;
 			this.data = data;
 			this.options = options || {
-				animation: true,
-				animationSteps: 60,
+				height: 300,
+				width: 300,
 				onStart: function(){},
 				onFinish: function(){}
 			};
+
+			// construct canvas
+			canvas.height = options.height;
+			canvas.width = options.width;
+			document.body.appendChild(canvas);
 		}
 
 		static createRectangle(dimensions, fill) {
@@ -72,4 +74,6 @@
 
 		}
 	}
-}).call(this);
+	// Export to Namespace
+	Grapher.Graph = Graph;
+})(Grapher);

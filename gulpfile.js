@@ -4,20 +4,26 @@ var del = require('del'),
 
 // gulp dependencies
 var gulp = require('gulp'),
-    sass = require('gulp-sass'),
-	babel = require("gulp-babel"),
-	sourcemaps = require("gulp-sourcemaps"),
-    htmlreplace = require('gulp-html-replace'),
-    connect = require('gulp-connect'),
-    modRewrite = require('connect-modrewrite'),
-    minify = require('gulp-minify-css'),
+    babel = require("gulp-babel"),
+    browserify = require('browserify'),
     concat = require('gulp-concat'),
-    rename = require('gulp-rename');
+    connect = require('gulp-connect'),
+    htmlreplace = require('gulp-html-replace'),
+    minify = require('gulp-minify-css'),
+    modRewrite = require('connect-modrewrite'),
+    rename = require('gulp-rename'),
+    sass = require('gulp-sass'),
+    sourcemaps = require("gulp-sourcemaps");
 
 
 // Config
 var dest = 'dist/',
     src = 'src/';
+
+var vendorJS = [
+  'node_modules/jquery/dist/jquery.js',
+  'node_modules/lodash/index.js'
+];
 
 // clean out the dist directory
 gulp.task('clean', function(cb) {
@@ -38,8 +44,8 @@ gulp.task('css', function() {
         .pipe(connect.reload());
 });
 
-// Discovers all dependencies, concatenates together all required .js files, minifies them
-gulp.task("js", function () {
+// Builds ES2015 with BabelJS
+gulp.task("babel-js", function () {
   return gulp.src(["src/js/*.js"])
     .pipe(sourcemaps.init())
     .pipe(concat("all.js"))
@@ -49,17 +55,25 @@ gulp.task("js", function () {
     .pipe(connect.reload());
 });
 
+// Concats and sourcempas vendor JS
+gulp.task("js", function () {
+  return gulp.src(vendorJS)
+    .pipe(sourcemaps.init())
+    .pipe(concat("vendor.js"))
+    .pipe(sourcemaps.write("."))
+    .pipe(gulp.dest(dest + "js/vendor"));
+});
+
 // Save html to dist
 gulp.task('html', function() {
     gulp.src('src/**/*.html')
         .pipe(htmlreplace({
             'css': 'css/styles.min.css',
-            'js': 'js/all.js'
+            'js': 'js/vendor/vendor.js',
+            'babel-js': 'js/all.js'
         }))
         .pipe(gulp.dest('dist/'))
         .pipe(connect.reload());
-    gulp.src('src/js/vendor/*.js')
-    .pipe(gulp.dest(dest + "js"));
 });
 
 gulp.task('images', function() {
@@ -86,13 +100,13 @@ gulp.task('connect', function() {
 });
 
 gulp.task('watch', function() {
-    gulp.watch(src + '/**/*.js', ['js']);
+    gulp.watch(src + '/**/*.js', ['babel-js']);
     gulp.watch(src + '/**/*.scss', ['css']);
     gulp.watch(src + '/**/*.html', ['html']);
 });
 
 gulp.task('build', function(callback) {
-    rs('clean', ['js', 'css', 'html', 'images'], callback);
+    rs('clean', ['js','babel-js', 'css', 'html', 'images'], callback);
 });
 
 gulp.task('default', function(callback) {
