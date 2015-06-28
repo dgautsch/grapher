@@ -39,7 +39,7 @@
   },
   "jshintConfig": {
     "predef": [
-      "Graph"
+      "Grapher"
     ]
   }
 }

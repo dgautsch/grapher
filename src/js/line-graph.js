@@ -9,7 +9,8 @@ var Grapher = Grapher || {};
         }
 
         draw() {
-			console.log(this);
+			console.log("Draw method of " + LineGraph.name + " called");
+			console.log(this.data);
         }
 
         addData() {
