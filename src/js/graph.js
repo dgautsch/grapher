@@ -1,5 +1,5 @@
 // Define Namesapce
-var Grapher = Grapher || {};
+var Grapher = Grapher || {}; /* jshint ignore:line */
 (function(Grapher) {
 	"use strict";
 	Object.prototype.extend = function(obj) {
@@ -122,8 +122,8 @@ var Grapher = Grapher || {};
 			 */
 			let ctx = this.context,
 				canvas = this.canvas,
-				data = this.data,
-				options = this.options,
+				data = this.Data,
+				options = this.Options,
 				yLabel = data.yLabel,
 				font = options.font,
 				axisColor = options.axisColor;
