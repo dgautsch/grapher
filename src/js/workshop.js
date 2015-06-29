@@ -15,7 +15,4 @@
     };
     var lineGraph = new Grapher.LineGraph(data, {id: "lineGraph", height: 400, width: 600});
     lineGraph.scaffold();
-    let newOptions = {height: 400, width: 800}
-    lineGraph.Options = newOptions;
-    debugger;
 })();

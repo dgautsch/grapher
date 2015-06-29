@@ -2,7 +2,6 @@
 var Grapher = Grapher || {};
 (function(Grapher) {
 	"use strict";
-	/*jshint esnext: true */
 	Object.prototype.extend = function(obj) {
 		/**
 		 * Extends an object replacing the parents properties with the child's.
@@ -59,7 +58,7 @@ var Grapher = Grapher || {};
 		set Data(updates) {
 			this.data.extend(updates);
 		}
-		
+
 		checkData(data) {
 			var keys = Object.keys(data);
 			if (keys.length === 0) {

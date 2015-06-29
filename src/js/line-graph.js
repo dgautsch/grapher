@@ -1,6 +1,3 @@
-/*jshint esnext: true */
-// Define Namesapce
-var Grapher = Grapher || {};
 (function(Grapher){
 	"use strict";
     class LineGraph extends Grapher.Graph {
@@ -10,7 +7,16 @@ var Grapher = Grapher || {};
 
         scaffold() {
 			super.scaffold();
+			this.plot();
         }
+		plot() {
+			console.log("Ploting the line graph.");
+			let data = this.Data,
+				labels = data.dataSetLabels,
+				dataSets = data.sets;
+
+
+		}
     }
 	Grapher.LineGraph = LineGraph;
 })(Grapher);
