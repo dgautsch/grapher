@@ -15,16 +15,16 @@ var Grapher = Grapher || {}; /* jshint ignore:line */
 	};
 	class Graph {
 		constructor(data, options) {
-			if (!this.checkData(data)) {
+			if (!Graph.checkData(data)) {
 				throw new Error("Cannot create a graph without data. You did not pass in data to plot.");
 			}
+			// Set the graph options overriding defaults}
 			this.data = data;
-
-			// Set the graph options overriding defaults
 			this.options = {
 				// Graph Defaults
 				height: 300,
 				width: 300,
+				graphPadding: 30,
 				font: "Arial",
 				axisColor: "#282828",
       			lineCap: 'butt',
@@ -59,7 +59,7 @@ var Grapher = Grapher || {}; /* jshint ignore:line */
 			this.data.extend(updates);
 		}
 
-		checkData(data) {
+		static checkData(data) {
 			var keys = Object.keys(data);
 			if (keys.length === 0) {
 				return false;
@@ -115,6 +115,19 @@ var Grapher = Grapher || {}; /* jshint ignore:line */
 			}
 
 		}
+
+		static getMaxY(data) {
+			let max;
+
+		}
+
+		calcDimensions(val) {
+			let options = this.Options;
+			let data = this.Data;
+			let padding = options.graphPadding;
+			return ((options.width - padding) / data.dataSetLabels.length) * val + (padding * 1.5);
+		}
+
 		scaffold() {
 			/**
 			 * @param {options} graph options and data
@@ -124,17 +137,18 @@ var Grapher = Grapher || {}; /* jshint ignore:line */
 				canvas = this.canvas,
 				data = this.Data,
 				options = this.Options,
+				padding = options.graphPadding,
 				yLabel = data.yLabel,
 				font = options.font,
 				axisColor = options.axisColor;
 
 			// draw axes
 			ctx.beginPath();
-			ctx.moveTo(30,0);
+			ctx.moveTo(padding,0);
     		ctx.lineWidth = 1;
 	    	ctx.strokeStyle = axisColor;
-			ctx.lineTo(30, canvas.height-30);
-			ctx.lineTo(canvas.width, canvas.height-30);
+			ctx.lineTo(padding, canvas.height-padding);
+			ctx.lineTo(canvas.width, canvas.height-padding);
 			ctx.stroke();
 
 			// write y axis label
@@ -142,6 +156,11 @@ var Grapher = Grapher || {}; /* jshint ignore:line */
 			ctx.font = font;
 			ctx.fillText(yLabel, -canvas.height/2, 10);
 			ctx.setTransform(1, 0, 0, 1, 0, 0); // reset rotation
+
+			// write x axis labels
+			for (var i = 0; i < data.dataSetLabels.length; i++) {
+				ctx.fillText(data.dataSetLabels[i], this.calcDimensions(i), options.height - padding + 20);
+			}
 
 		}
 	}

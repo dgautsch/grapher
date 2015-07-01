@@ -10,7 +10,6 @@
 			this.plot();
         }
 		plot() {
-			console.log("Ploting the line graph.");
 			let data = this.Data,
 				options = this.Options,
 				labels = data.dataSetLabels,
@@ -19,8 +18,9 @@
 
 			dataSets.forEach(function(obj){
 				let [dataSet, label] = [obj.dataSet, obj.label];
-				let [width, numOfPoints] = [options.width, dataSet.length];
-				let [lastPoint, nextPoint, interval] = [dataSet[0], dataSet[1], width/numOfPoints];
+				let [chartHeight, chartWidth] = [options.width, options.height];
+				let numOfPoints = dataSet.length;
+				let [lastPoint, nextPoint, interval] = [dataSet[0], dataSet[1], chartWidth/numOfPoints];
 				let origin = 30;
 				// Begin Plot
 				ctx.beginPath();
