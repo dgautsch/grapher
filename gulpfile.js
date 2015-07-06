@@ -66,7 +66,7 @@ gulp.task("js", function () {
 
 // Save html to dist
 gulp.task('html', function() {
-    gulp.src('src/**/*.html')
+    gulp.src([src + '**/*.html'])
         .pipe(htmlreplace({
             'css': 'css/styles.min.css',
             'js': 'js/vendor/vendor.js',
@@ -74,6 +74,8 @@ gulp.task('html', function() {
         }))
         .pipe(gulp.dest('dist/'))
         .pipe(connect.reload());
+    gulp.src(src + "favicon.ico")
+    .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('images', function() {
