@@ -1,5 +1,4 @@
-# Babel: A Learning Environment for ES2015
+# Grapher: A graphing library built with ES2015 and BabelJS
 
 ## Description
-A simple workshop.
-
+Build this with npm install and then run gulp
