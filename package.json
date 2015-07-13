@@ -5,7 +5,7 @@
   "main": "index.html",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "gulp"
   },
   "keywords": [
     "babel",
@@ -38,6 +38,7 @@
     "run-sequence": "^1.1.0"
   },
   "jshintConfig": {
+    "esnext": true,
     "predef": [
       "Grapher"
     ]

@@ -18,7 +18,7 @@ var Grapher = Grapher || {}; /* jshint ignore:line */
 			if (!Graph.checkData(data)) {
 				throw new Error("Cannot create a graph without data. You did not pass in data to plot.");
 			}
-			// Set the graph options overriding defaults}
+			// Set the graph options overriding defaults
 			this.data = data;
 			this.options = {
 				// Graph Defaults
