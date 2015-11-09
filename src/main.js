@@ -5,14 +5,18 @@ import LineGraph from "./modules/line-graph.js";
     "use strict";
     var data = {
         dataSetLabels: ["Alpha", "Beta", "Charlie", "Delta", "Echo", "Foxtrot", "Golf"],
-        yLabel: "Military Designations",
+        yLabel: "Promotion Rate",
         sets: [{
             label: "Days in Role",
-            dataSet: [10,12,13,20,22,30,50]
+            dataSet: [10,12,13,20,22,30,50],
+            strokeStyle: "orange",
+            lineWidth: 2
         },
         {
             label: "Promotions",
-            dataSet: [5,8,10,2,3,4,1]
+            dataSet: [40,8,10,2,3,4,1],
+            strokeStyle: "#CC000C",
+            lineWidth: 3
         }]
     };
     var lineGraph = new LineGraph(data, {id: "lineGraph", height: 400, width: 600});

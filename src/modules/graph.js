@@ -11,7 +11,7 @@ Object.prototype.extend = function(obj) {
 };
 class Graph {
 	constructor(data, options) {
-		if (!Graph.checkData(data)) {
+		if (!Graph.dataWasPassed(data)) {
 			throw new Error("Cannot create a graph without data. You did not pass in data to plot.");
 		}
 		// Set the graph options overriding defaults
@@ -24,6 +24,7 @@ class Graph {
 			font: "Arial",
 			axisColor: "#282828",
 			lineCap: 'butt',
+			xPoints: [],
 			onStart: function() {},
 			onFinish: function() {}
 		};
@@ -55,7 +56,7 @@ class Graph {
 		this.data.extend(updates);
 	}
 
-	static checkData(data) {
+	static dataWasPassed(data) {
 		var keys = Object.keys(data);
 		if (keys.length === 0) {
 			return false;
@@ -116,7 +117,9 @@ class Graph {
 		let options = this.Options;
 		let data = this.Data;
 		let padding = options.graphPadding;
-		return ((options.width - padding) / data.dataSetLabels.length) * val + (padding * 1.5);
+		let point = ((options.width - padding) / data.dataSetLabels.length) * val + (padding * 1.5);
+		this.Options.xPoints.push(point); // store our points in the options;
+		return point;
 	}
 
 	scaffold() {

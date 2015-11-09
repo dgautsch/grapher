@@ -1,4 +1,5 @@
 {
   "esnext": true,
-  "predef": [ "Grapher" ]
+  "undef": true,
+  "unused": true
 }
