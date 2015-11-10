@@ -24,7 +24,7 @@ class Graph {
 			font: "Arial",
 			axisColor: "#282828",
 			lineCap: 'butt',
-			xPoints: [],
+			labelXPoints: [],
 			onStart: function() {},
 			onFinish: function() {}
 		};
@@ -63,6 +63,7 @@ class Graph {
 		}
 		return true;
 	}
+	
 	static createRectangle(dimensions, fill) {
 		[this.x, this.y] = [dimensions[0], dimensions[1]];
 		[this.height, this.width] = [dimensions[2], dimensions[3]];
@@ -75,12 +76,15 @@ class Graph {
 		this.fill = fill;
 	}
 
-	static createLine(dimensions, fill) {
-		[this.x, this.y] = [dimensions[0], dimensions[1]];
-		[this.height, this.width] = [dimensions[2], dimensions[3]];
-		this.fill = fill;
+	static getPoints(xAxis, yAxis, options) {
+		var [x,y] = [xAxis, options.height - yAxis - options.graphPadding];
+		return {
+			x: x,
+			y: y
+		};
 	}
-	createBrush(dimensions = [0, 0, 100, 100], type = 'rectangle', fill = 'black') {
+	
+	createPoint(dimensions = [0, 0, 100, 100], type = 'circle', fill = 'black') {
 		/**
 		 * @param {dimensions} an array containing the x,y pos values and dimensions of the drawn object
 		 * @param {type} the type of object, rectangle or circle
@@ -113,13 +117,24 @@ class Graph {
 
 	}
 
-	calcDimensions(val) {
+	setLabels(val) {
 		let options = this.Options;
 		let data = this.Data;
 		let padding = options.graphPadding;
 		let point = ((options.width - padding) / data.dataSetLabels.length) * val + (padding * 1.5);
-		this.Options.xPoints.push(point); // store our points in the options;
+		this.Options.labelXPoints.push(point); // store our points in the options;
 		return point;
+	}
+
+	calcDataSetPoints() {
+		let data = this.Data;
+		let options = this.Options;
+		let interval = options.labelXPoints.length;
+		let pointsPerInterval;
+		data.sets.forEach((obj) => {
+			pointsPerInterval = obj.dataSet.length / interval;
+			obj.pointsPerInterval = pointsPerInterval;		
+		});
 	}
 
 	scaffold() {
@@ -153,9 +168,18 @@ class Graph {
 
 		// write x axis labels
 		for (var i = 0; i < data.dataSetLabels.length; i++) {
-			ctx.fillText(data.dataSetLabels[i], this.calcDimensions(i), options.height - padding + 20);
+			ctx.fillText(data.dataSetLabels[i], this.setLabels(i), options.height - padding + 20);
 		}
 
+		this.calcDataSetPoints();
+
+	}
+	plot() {
+		throw new Error(`Graph has no plot method defined, use a subclass module.`);
+	}
+	render() {
+		this.scaffold();
+		this.plot();
 	}
 }
 module.exports = Graph;

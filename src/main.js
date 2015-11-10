@@ -8,7 +8,7 @@ import LineGraph from "./modules/line-graph.js";
         yLabel: "Promotion Rate",
         sets: [{
             label: "Days in Role",
-            dataSet: [10,12,13,20,22,30,50],
+            dataSet: [10,12,13,20,22,30,50,1000,120,130,20,22,300,50,50,10,12,123,20,22,30,50,50,10,12,13,20,22,30,500],
             strokeStyle: "orange",
             lineWidth: 2
         },
@@ -20,6 +20,6 @@ import LineGraph from "./modules/line-graph.js";
         }]
     };
     var lineGraph = new LineGraph(data, {id: "lineGraph", height: 400, width: 600});
-    lineGraph.scaffold();
-    lineGraph.plot();
+
+    lineGraph.render();
 })();
