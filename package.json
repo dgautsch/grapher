@@ -13,12 +13,7 @@
     "es2015"
   ],
   "author": "Dan Gautsch",
-  "license": "ISC",
-  "dependencies": {
-    "jquery": "~2.1.4",
-    "lodash": "~3.9.3",
-    "browserify": "~10.2.4"
-  },
+  "license": "MIT",
   "devDependencies": {
     "babel-eslint": "^3.1.15",
     "babelify": "^6.2.0",
