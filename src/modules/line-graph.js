@@ -9,7 +9,8 @@ class LineGraph extends Graph {
 		let data = this.Data,
 			options = this.Options,
 			dataSets = data.sets,
-			ctx = this.context;
+			ctx = this.context,
+			xPoints = options.get('labelXPoints');
 
 		dataSets.forEach(function (obj) {
 			let [dataSet, strokeStyle, lineWidth] = [obj.dataSet, obj.strokeStyle, obj.lineWidth];
@@ -18,12 +19,12 @@ class LineGraph extends Graph {
 			ctx.strokeStyle = strokeStyle;
 			ctx.lineWidth = lineWidth;
 			for (var i = 0; i < dataSet.length; i++) {
-				let point = Graph.getPoints(options.labelXPoints[i], dataSet[i], options);
-				let nextPoint = Graph.getPoints(options.labelXPoints[i+ 1], dataSet[i+ 1], options);
+				let point = Graph.getPoints(xPoints[i], dataSet[i], options);
+				let nextPoint = Graph.getPoints(xPoints[i+ 1], dataSet[i+ 1], options);
 				ctx.moveTo(point.x, point.y);
 				ctx.lineTo(nextPoint.x, nextPoint.y);
 			}
-			ctx.stroke();	
+			ctx.stroke();
 
 		});
 
