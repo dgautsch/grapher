@@ -131,9 +131,12 @@ class Graph {
 		let data = this.Data;
 		let padding = options.get('graphPadding');
 		let point = ((options.get('width') - padding) / data.dataSetLabels.length) * val + (padding * 1.5);
-		let xPoints = this.Options.get('labelXPoints'); // store our points in the options;
+		
+		// store our points in the configuration options;
+		let xPoints = this.Options.get('labelXPoints');
 		xPoints.push(point);
 		this.Options.set('labelXPoints', xPoints);
+		
 		return point;
 	}
 
@@ -189,12 +192,10 @@ class Graph {
 		throw new Error(`Graph has no plot method defined, use a subclass module.`);
 	}
 	render() {
-		((options, canvas, context) => {
-			this.configuration.get('onStart')(options, canvas, context);
-			this.scaffold();
-			this.plot();
-			this.configuration.get('onFinish')(options, canvas, context);
-		}(this.Options, this.canvas, this.context));
+		this.configuration.get('onStart')(this.Options, this.canvas, this.context);
+		this.scaffold();
+		this.plot();
+		this.configuration.get('onFinish')(this.Options, this.canvas, this.context);
 	}
 }
 module.exports = Graph;

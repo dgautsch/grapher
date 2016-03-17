@@ -14,12 +14,11 @@ import LineGraph from "./modules/line-graph.js";
         },
         {
             label: "Promotions",
-            dataSet: [40,8,10,2,3,4,1],
+            dataSet: [40,8,200,100,30,40,100],
             strokeStyle: "#CC000C",
             lineWidth: 3
         }]
     };
     var lineGraph = new LineGraph(data, {id: "lineGraph", height: 400, width: 600});
-
     lineGraph.render();
 })();
